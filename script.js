@@ -100,7 +100,7 @@ todayBtn.addEventListener("click", () => {
   initCalendar();
 });
 
-dateInput.addEventListener("keyup", (e) => {
+dateInput.addEventListener("input", (e) => {
   //allow only numbers
   dateInput.value = dateInput.value.replace(/[^0-9/]/g, "");
   if (dateInput.value.length === 2) {
@@ -130,3 +130,47 @@ function gotoDate() {
   }
   alert("invalid date");
 }
+
+const addEventBtn = document.querySelector(".add-event"),
+  addEventContainer = document.querySelector(".add-event-wrapper"),
+  addEventCloseBtn =document.querySelector(".close"),
+  addEventTitle = document.querySelector(".event-name"),
+  addEventFrom = document.querySelector(".event-time-from"),
+  addEventTo = document.querySelector(".event-time-to");
+
+addEventBtn.addEventListener("click", () => {
+  addEventContainer.classList.toggle("active");
+});
+
+addEventCloseBtn.addEventListener("click", () => {
+  addEventContainer.classList.remove("active");
+});
+
+document.addEventListener("click", (e) => {
+  if (e.target !== addEventBtn && !addEventContainer.contains(e.target)) {
+    addEventContainer.classList.remove("active");
+  }
+});
+
+addEventTitle.addEventListener("input", (e) => {
+  addEventTitle.value = addEventTitle.value.slice(0, 50);
+});
+
+addEventFrom.addEventListener("input", (e) => {
+  addEventFrom.value = addEventFrom.value.replace(/[^0-9:]/g, "");
+  if (addEventFrom.value.length === 2) {
+    addEventFrom.value += ":";
+  }
+  if (addEventFrom.value.length > 5)
+    addEventFrom.value = addEventFrom.value.slice(0, 5);
+});
+
+addEventTo.addEventListener("input", (e) => {
+  addEventTo.value = addEventTo.value.replace(/[^0-9:]/g, "");
+  if (addEventTo.value.length === 2) {
+    addEventTo.value += ":";
+  }
+  if (addEventTo.value.length > 5) {
+    addEventTo.value = addEventTo.value.slice(0, 5);
+  }
+});
